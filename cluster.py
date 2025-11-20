@@ -2,11 +2,18 @@ def cluster(graph, weights, level):
     visited = set()
     components = []
 
-    for u in graph.vertices():
+    if hasattr(graph, "vertices"):
+        nodes_iter = graph.vertices()
+    elif hasattr(graph, "nodes"):
+        nodes_iter = graph.nodes()
+    else:
+        nodes_iter = graph
+
+    for u in nodes_iter:
         if u not in visited:
             stack = [u]
-            visited.add(u)
             comp = set()
+            visited.add(u)
             while stack:
                 x = stack.pop()
                 comp.add(x)
